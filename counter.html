@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 60px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        #counter {
+            font-size: 80px;
+            font-weight: bold;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 150px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #count {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #count:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+        }
+
+        #reset {
+            background-color: #f44336a9;
+            color: white;
+        }
+
+        #reset:hover {
+            background-color: #da190bc4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(244, 67, 54, 0.4);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Counter</h1>
+    <div id="container">
+        <div id="counter">0</div>
+        <button id="count">Count</button>
+        <button id="reset">Reset</button>
+    </div>
+
+</body>
+<script>
+    if(!localStorage.getItem('counter')) {
+    localStorage.setItem('counter', 0);
+}
+
+function count() {
+    let counter = localStorage.getItem('counter')
+    counter++;
+    document.querySelector('#counter').innerHTML = counter;
+    localStorage.setItem('counter', counter);
+
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector('#counter').innerHTML = localStorage.getItem('counter');
+    document.querySelector('#count').onclick = count;
+    document.querySelector('#reset').onclick = function() {
+        localStorage.setItem('counter', 0);
+        document.querySelector('#counter').innerHTML = 0;
+    };
+});
+// wait until all content is loaded then only run the count function
+</script>
+
+</html>
