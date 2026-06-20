@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .todo-box {
+            width: 100%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        #container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: background 0.3s;
+        }
+
+        input[type="text"]::placeholder {
+            color: #ddd;
+        }
+
+        input[type="text"]:focus {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #submit {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #submit:disabled {
+            background-color: #555;
+            color: #aaa;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        #submit:not(:disabled):hover {
+            background-color: #45a049;
+            transform: translateY(-1px);
+        }
+
+        #tasks {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between; /* Pushes remove button to the far right */
+            align-items: center;
+            border-left: 4px solid #4caf50;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .remove-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            border-radius: 6px;
+        }
+
+        .remove-btn:hover {
+            background-color: #da190b;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>To-do List</h1>
+
+    <div class="todo-box">
+        <form id="container">
+            <input id="task" placeholder="New Task" type="text" autocomplete="off">
+            <button id="submit">Add</button>
+        </form>
+
+        <ul id="tasks"></ul>
+    </div>
+
+    <script>
+        if(!localStorage.getItem('tasks')) { //initialize storage
+            localStorage.setItem('tasks', JSON.stringify([]));
+        }
+
+        //save current state storage
+        function save(){
+            const tasksArr = [];
+            document.querySelectorAll('#tasks li span').forEach(span => {
+                tasksArr.push(span.textContent);
+            });
+            localStorage.setItem('tasks', JSON.stringify(tasksArr));
+        }
+
+        //construct html elements
+        function createAndAppend(taskText){
+            const li = document.createElement('li');
+            const taskSpan = document.createElement('span');
+            taskSpan.textContent = taskText;
+            li.append(taskSpan);
+
+            const remove = document.createElement('button');
+            remove.innerHTML = 'Remove';
+            remove.className = 'remove-btn';
+            remove.onclick = () => {
+                li.remove();
+                save();
+            }
+            li.append(remove);
+            document.querySelector('#tasks').append(li);
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            // load saved items when DOM is ready
+            const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+            storedTasks.forEach(taskText => {
+                createAndAppend(taskText);
+            });
+            document.querySelector('#submit').disabled = true;
+
+            document.querySelector('#task').onkeyup = () => {
+                if (document.querySelector('#task').value.trim().length > 0) {
+                    document.querySelector('#submit').disabled = false;
+                } else {
+                    document.querySelector('#submit').disabled = true;
+                }
+            }
+
+            document.querySelector('#container').onsubmit = () => {
+                const taskText = document.querySelector('#task').value;
+                
+                createAndAppend(taskText);
+                save();
+
+                document.querySelector('#task').value = '';
+                document.querySelector('#submit').disabled = true;
+
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>
