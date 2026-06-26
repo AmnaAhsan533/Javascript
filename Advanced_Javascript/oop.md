@@ -11,7 +11,8 @@
 
 # parts of OOP
 Object literal
-`const user = {
+`
+const user = {
     username: 'amna',
     loginCount: 8,
     signedIn = true,
@@ -20,8 +21,9 @@ Object literal
         console.log('Got user details from database');
     }
 }
+
 console.log(user.username);
-console.log(user.getUserDetails())
+console.log(user.getUserDetails());
 
 `
 
