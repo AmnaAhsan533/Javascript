@@ -11,7 +11,7 @@
 
 # parts of OOP
 Object literal
-`
+```js
 const user = {
     username: 'amna',
     loginCount: 8,
@@ -25,7 +25,7 @@ const user = {
 console.log(user.username);
 console.log(user.getUserDetails());
 
-`
+```
 
 - Constructor function
 
