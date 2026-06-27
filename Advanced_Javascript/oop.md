@@ -1,6 +1,6 @@
-## Object Oriented in JavaScript
+# Object Oriented in JavaScript
 
-#Javascript and classes 
+## Javascript and classes 
 - Prototype based language
 - Even with the introduction of the ```class``` keyword in ES6, it remains syntactic sugar over Javascript's existing prototype-based inheritance
 
@@ -8,14 +8,14 @@
 - collection of properties and methods
 - e.g ```toLowerCase()``` is built-in method belonging to the string object prototype.
 
-# why use OOP?
+## why use OOP?
 - Modularity
 - Reusability: avoids repeating via inheritance and constructor functions
 - Maintainability
 
-## ---Parts of OOP---
+# ---Parts of OOP---
 
-# Object literal
+## Object literal
  It is a direct way to define a single object using {}
 ```js
 const user = {
@@ -33,7 +33,7 @@ console.log(user.getUserDetails());
 
 ```
 
-# Constructor function
+## Constructor function
 Allows us to create blueprints for generating multiple objects of the same structure
 ```js
 const date = new Date() // here new refers to constructor function, helps us to make new context
@@ -59,7 +59,7 @@ const user1 = new User('Amna', 12, true)
 const user2 = new User('Aisha', 11, false)
 console.log(user1) //now because of new keyword the user2 don't overwrite the user1
 ```
-# Prototypes and Prototypal Inheritance
+## Prototypes and Prototypal Inheritance
 In javascript everything (functions, arrays, strings) eventually behavees like or traces back to an Object. Because functions are objects, they can also have properties attached to them.
 ```js
 function mulby5(num){
@@ -73,7 +73,7 @@ console.log(mulby5.prototype) // returns an empty obj layer available to attach 
 ```
 ![alt text](image-1.png)
 
-# Injecting Custom Prototpye Methods\
+## Injecting Custom Prototpye Methods
 
 ```js
 function createUser(username, score){
@@ -95,7 +95,7 @@ const b = new createUser('B', 15);
 a.printMe(); // score is 20
 ```
 
-# Extending Native Prototypes
+## Extending Native Prototypes
 We can dynamically add methods directly to global objects like ```String``` or ```Array```
 
 ```js
@@ -112,7 +112,7 @@ myName.trueLength()
 
 ```
 
-# Modern Prototype Linking
+## Modern Prototype Linking
 Instead of using the older __proto__ syntax, modern JavaScript handles prototype inheritance using standard Object methods.
 
 Object.setPrototypeOf() --> modern syntax 
