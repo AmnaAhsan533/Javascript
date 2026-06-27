@@ -1,6 +1,6 @@
 ## Object Oriented in JavaScript
 
-#Javascript and classes 
+# Javascript and classes 
 - Prototype based language
 - Even with the introduction of the ```class``` keyword in ES6, it remains syntactic sugar over Javascript's existing prototype-based inheritance
 
